@@ -3,9 +3,9 @@ apply plugin: 'application'
 
 dependencies {
     compile project(':weechat-relay')
-    compile 'org.slf4j:slf4j-api:1.6.6'
+    compile 'org.slf4j:slf4j-api:1.7.10'
 
-    runtime 'org.slf4j:slf4j-simple:1.6.6'
+    runtime 'eu.lp0.slf4j:slf4j-android:1.7.10-0'
 }
 
 mainClassName="com.ubergeek42.relayexample.RelayExample"
