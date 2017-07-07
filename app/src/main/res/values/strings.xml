@@ -18,7 +18,7 @@
     <string name="disconnect">Disconnect</string>
     <string name="stop_connecting">Stop connecting</string>
     <string name="menu_hotlist">Hotlist</string>
-    <string name="menu_nicklist">Nicks</string>
+    <string name="menu_nicklist">Nickname list</string>
     <string name="tabkey">Tab</string>
     <string name="open_drawer">Open drawer</string>
     <string name="close_drawer">Close drawer</string>
