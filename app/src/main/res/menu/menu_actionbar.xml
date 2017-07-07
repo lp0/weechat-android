@@ -4,6 +4,10 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:ignore="AlwaysShowAction">
+    <item android:id="@+id/menu_close"
+          app:showAsAction="never"
+          android:icon="@drawable/ic_cancel"
+          android:title="@string/menu_close"/>
     <item android:id="@+id/menu_nicklist"
           app:showAsAction="always"
           android:icon="@drawable/ic_toolbar_users"
@@ -12,13 +16,9 @@
           app:actionLayout="@layout/toolbar_bell"
           app:showAsAction="always"
           android:title="@string/menu_hotlist" />
-    <item android:id="@+id/menu_close"
-          android:menuCategory="secondary"
-          app:showAsAction="never"
-          android:title="@string/menu_close"/>
     <item android:id="@+id/menu_connection_state"
-          android:menuCategory="secondary"
           app:showAsAction="never"
+          android:icon="@drawable/ic_toolbar_disconnected"
           android:title="@null"/>
     <item android:id="@+id/menu_preferences"
           android:menuCategory="secondary"
