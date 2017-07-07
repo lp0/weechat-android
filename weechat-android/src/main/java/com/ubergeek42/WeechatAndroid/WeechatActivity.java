@@ -485,6 +485,10 @@ public class WeechatActivity extends AppCompatActivity implements
                     else msg = getString(R.string.connect);
                     connectionStatus.setTitle(msg);
 
+                    if (state.contains(AUTHENTICATED)) connectionStatus.setIcon(R.drawable.ic_4_collections_cloud);
+                    else if (state.contains(STARTED)) connectionStatus.setIcon(R.drawable.ic_4_collections_cloud_connecting);
+                    else connectionStatus.setIcon(R.drawable.ic_4_collections_cloud_disconnected);
+
                     final View menuHotlist = MenuItemCompat.getActionView(uiMenu.findItem(R.id.menu_hotlist));
                     ImageView bellImage = (ImageView) menuHotlist.findViewById(R.id.hotlist_bell);
                     bellImage.setImageResource(P.optimizeTraffic ? R.drawable.ic_bell_cracked : R.drawable.ic_bell);
