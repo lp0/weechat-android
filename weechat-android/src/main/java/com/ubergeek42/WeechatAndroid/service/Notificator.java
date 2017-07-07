@@ -77,7 +77,7 @@ public class Notificator {
                 .setWhen(System.currentTimeMillis());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-            builder.setPriority(Notification.PRIORITY_MIN);
+            builder.setPriority(Notification.PRIORITY_DEFAULT);
 
         if (P.notificationTicker)
             builder.setTicker(tickerText);
