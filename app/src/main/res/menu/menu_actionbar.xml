@@ -17,9 +17,8 @@
           app:showAsAction="never"
           android:title="@string/close"/>
     <item android:id="@+id/menu_connection_state"
-          android:menuCategory="secondary"
-          app:showAsAction="never"
-          android:icon="@drawable/ic_4_collections_cloud"
+          app:showAsAction="always"
+          android:icon="@drawable/ic_4_collections_cloud_disconnected"
           android:title="ConnectionState?"/>
     <item android:id="@+id/menu_preferences"
           android:menuCategory="secondary"
