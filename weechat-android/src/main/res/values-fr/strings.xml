@@ -11,7 +11,7 @@
     <string name="hot_message_not_available">(message notable non disponible)</string>
     <string name="hotlist">Messages notables</string>
     <string name="more_button">Récupérer d\'autres lignes</string>
-    <string name="nicklist_menu">Pseudos</string>
+    <string name="nicklist_menu">Liste des pseudos</string>
     <string name="no_hot_buffers">Il n\'y a pas de tampon notable</string>
     <string name="notification_connected_to">Connecté à %s</string>
     <string name="notification_connecting">Connexion à %s…</string>
