@@ -17,8 +17,8 @@
           app:showAsAction="never"
           android:title="@string/menu_close"/>
     <item android:id="@+id/menu_connection_state"
-          android:menuCategory="secondary"
-          app:showAsAction="never"
+          app:showAsAction="always"
+          android:icon="@drawable/ic_toolbar_disconnected"
           android:title="@null"/>
     <item android:id="@+id/menu_preferences"
           android:menuCategory="secondary"
