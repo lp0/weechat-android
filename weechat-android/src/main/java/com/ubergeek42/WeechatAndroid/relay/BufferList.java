@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 
@@ -160,6 +161,24 @@ public class BufferList {
         if (fullName == null) return null;
         for (Buffer buffer : buffers) if (buffer.fullName.equals(fullName)) return buffer;
         return null;
+    }
+
+    synchronized static public void sortFullNames(@NonNull List<String> fullNamesList) {
+        final HashMap<String,Integer> bufferNumbers = new HashMap<String,Integer>();
+
+        for (Buffer buffer : buffers) bufferNumbers.put(buffer.fullName, buffer.number);
+
+        Comparator<String> sortByNumberComparator = new Comparator<String>() {
+            @Override public int compare(String left, String right) {
+                Integer l = bufferNumbers.get(left);
+                Integer r = bufferNumbers.get(right);
+                if (l == null) l = Integer.MAX_VALUE;
+                if (r == null) r = Integer.MAX_VALUE;
+                return l.compareTo(r);
+            }
+        };
+
+        Collections.sort(fullNamesList, sortByNumberComparator);
     }
 
     /** sets or remove (using null) buffer list change watcher */

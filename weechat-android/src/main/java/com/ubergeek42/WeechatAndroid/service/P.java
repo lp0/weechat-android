@@ -60,7 +60,7 @@ public class P implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     ///////////////////////////////////////////////////////////////////////////////////////////// ui
 
-    public static boolean sortBuffers, showTitle, filterBuffers, optimizeTraffic;
+    public static boolean sortBuffers, showTitle, filterBuffers, optimizeTraffic, sortOpenBuffers;
     public static boolean filterLines, autoHideActionbar;
     public static int maxWidth;
     public static boolean encloseNick, dimDownNonHumanLines;
@@ -82,6 +82,7 @@ public class P implements SharedPreferences.OnSharedPreferenceChangeListener{
         showTitle = p.getBoolean(PREF_SHOW_BUFFER_TITLES, PREF_SHOW_BUFFER_TITLES_D);
         filterBuffers = p.getBoolean(PREF_FILTER_NONHUMAN_BUFFERS, PREF_FILTER_NONHUMAN_BUFFERS_D);
         optimizeTraffic = p.getBoolean(PREF_OPTIMIZE_TRAFFIC, PREF_OPTIMIZE_TRAFFIC_D);  // okay this is out of sync with onChanged stuff—used for the bell icon
+        sortOpenBuffers = p.getBoolean(PREF_SORT_OPEN_BUFFERS, PREF_SORT_OPEN_BUFFERS_D);
 
         // buffer-wide preferences
         filterLines = p.getBoolean(PREF_FILTER_LINES, PREF_FILTER_LINES_D);
@@ -180,6 +181,7 @@ public class P implements SharedPreferences.OnSharedPreferenceChangeListener{
             case PREF_SHOW_BUFFER_TITLES: showTitle = p.getBoolean(key, PREF_SHOW_BUFFER_TITLES_D); break;
             case PREF_FILTER_NONHUMAN_BUFFERS: filterBuffers = p.getBoolean(key, PREF_FILTER_NONHUMAN_BUFFERS_D); break;
             case PREF_AUTO_HIDE_ACTIONBAR: autoHideActionbar = p.getBoolean(key, PREF_AUTO_HIDE_ACTIONBAR_D); break;
+            case PREF_SORT_OPEN_BUFFERS: sortOpenBuffers = p.getBoolean(key, PREF_SORT_OPEN_BUFFERS_D); break;
 
             // buffer-wide preferences
             case PREF_FILTER_LINES: filterLines = p.getBoolean(key, PREF_FILTER_LINES_D); break;
