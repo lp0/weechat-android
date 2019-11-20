@@ -29,3 +29,5 @@
     public void setup(...);
     public static com.ubergeek42.cats.Kitty getKitty(...);
 }
+
+-dontwarn java.lang.invoke.**
