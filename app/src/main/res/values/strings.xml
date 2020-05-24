@@ -155,6 +155,8 @@
             <string name="pref_ssh_known_hosts_summary">Output of $ ssh-keyscan host 2>/dev/null</string>
 
     <string name="pref_tls_group">TLS settings</string>
+            <string name="pref_tls_manual_trust_enabled">Prompt for unverified certificates</string>
+            <string name="pref_tls_manual_trust_enabled_summary">Allow new unverified server certificates to be trusted manually</string>
             <string name="pref_clear_certs">Clear certificates</string>
             <string name="pref_clear_certs_confirmation">Clear certificates?</string>
             <string name="pref_clear_certs_summary">{0,choice,0#No trusted certificate|1#1 trusted certificate|1&lt;{0} trusted certificates}</string>

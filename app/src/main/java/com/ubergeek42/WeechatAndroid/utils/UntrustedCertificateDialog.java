@@ -7,7 +7,9 @@ import android.app.Dialog;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatTextView;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -22,6 +24,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.text.DateFormat;
+
+import static com.ubergeek42.WeechatAndroid.utils.Constants.*;
 
 public class UntrustedCertificateDialog extends DialogFragment {
 
@@ -46,15 +50,21 @@ public class UntrustedCertificateDialog extends DialogFragment {
         scrollView.addView(textView);
         scrollView.setPadding(padding, padding/2, padding, 0);
 
-        return new FancyAlertDialogBuilder(requireContext())
+        AlertDialog.Builder dialog = new FancyAlertDialogBuilder(requireContext())
                 .setTitle(getString(R.string.ssl_cert_dialog_title))
-                .setView(scrollView)
+                .setView(scrollView);
+        if (PreferenceManager.getDefaultSharedPreferences(requireContext())
+                .getBoolean(PREF_TLS_MANUAL_TRUST_ENABLED, PREF_TLS_MANUAL_TRUST_ENABLED_D)) {
+            dialog.setNegativeButton(getString(R.string.ssl_cert_dialog_reject_button), null)
                 .setPositiveButton(getString(R.string.ssl_cert_dialog_accept_button), (dialog1, which) -> {
                     SSLHandler.getInstance(requireContext()).trustCertificate(certificate);
                     ((WeechatActivity) requireActivity()).connect();
-                })
-                .setNegativeButton(getString(R.string.ssl_cert_dialog_reject_button), null)
-                .create();
+                });
+        } else {
+            dialog.setNegativeButton(getString(R.string.invalid_hostname_dialog_button), null);
+        }
+
+        return dialog.create();
     }
 
     // this prevents the dialog from being dismissed on activity restart
