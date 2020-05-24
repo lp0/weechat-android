@@ -31,6 +31,7 @@ public class Constants {
     final static public String PREF_TLS_GROUP = "tls_group";
     final static public String PREF_TLS_CLIENT_FILE = "tls_client_file"; final public static String PREF_TLS_CLIENT_FILE_D = "";
     final static public String PREF_TLS_CLIENT_FILE_PASS = "tls_client_file_pass"; final public static String PREF_TLS_CLIENT_FILE_PASS_D = "";
+    final static public String PREF_TLS_MANUAL_TRUST_ENABLED = "tls_manual_trust_enabled"; final public static boolean PREF_TLS_MANUAL_TRUST_ENABLED_D = true;
 
     // relay
     final static public String PREF_HOST = "host"; final public static String PREF_HOST_D = null;

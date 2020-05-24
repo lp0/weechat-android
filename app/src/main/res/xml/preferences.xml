@@ -22,6 +22,7 @@
         </PreferenceScreen>
 
         <PreferenceScreen android:key="tls_group" android:title="@string/pref_tls_group">
+            <CheckBoxPreference android:key="tls_manual_trust_enabled" android:title="@string/pref_tls_manual_trust_enabled" android:summary="@string/pref_tls_manual_trust_enabled_summary" android:defaultValue="true" />
             <ClearCertPreference android:key="tls_clear_certs" android:title="@string/pref_clear_certs" />
             <FilePreference android:key="tls_client_file" android:title="@string/pref_tls_client_file" android:summary="@string/pref_tls_client_file_summary" />
             <EditTextPreferenceFix android:key="tls_client_file_pass" android:title="@string/pref_tls_client_file_pass" android:summary="%s" android:password="true" android:singleLine="true"/>
