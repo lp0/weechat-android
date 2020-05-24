@@ -27,6 +27,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateParsingException;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,34 +55,22 @@ public class SSLHandler {
 
     private File keystoreFile;
     private KeyStore sslKeystore;
-    private byte[] clientKeyFile;
-    private String clientKeyFilePass;
     private KeyManager[] clientKeyManagers;
 
-    private SSLHandler(File keystoreFile, byte[] clientKeyFile, String clientKeyFilePass) {
+    private SSLHandler(File keystoreFile) {
         this.keystoreFile = keystoreFile;
         loadKeystore();
-        this.clientKeyFile = clientKeyFile;
-        this.clientKeyFilePass = clientKeyFilePass;
-        loadClientKeyFile();
+        loadClientKeystore();
     }
 
     private static @Nullable SSLHandler sslHandler = null;
 
     public static @NonNull SSLHandler getInstance(@NonNull Context context) {
-        return getInstance(context, null, "");
-    }
-
-    public static @NonNull SSLHandler getInstance(@NonNull Context context, @Nullable byte[] clientKeyFile, @NonNull String clientKeyFilePass) {
-        if (sslHandler == null || !sslHandler.sameParameters(clientKeyFile, clientKeyFilePass)) {
+        if (sslHandler == null) {
             File f = new File(context.getDir("sslDir", Context.MODE_PRIVATE), "keystore.jks");
-            sslHandler = new SSLHandler(f, clientKeyFile, clientKeyFilePass);
+            sslHandler = new SSLHandler(f);
         }
         return sslHandler;
-    }
-
-    private boolean sameParameters(@Nullable byte[] clientKeyFile, @NonNull String clientKeyFilePass) {
-        return Arrays.equals(clientKeyFile, this.clientKeyFile) && clientKeyFilePass.equals(this.clientKeyFilePass);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -274,20 +263,17 @@ public class SSLHandler {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Load client certificate and private key
-    private void loadClientKeyFile() {
+    private void loadClientKeystore() {
         clientKeyManagers = new KeyManager[0];
 
-        if (clientKeyFile != null && clientKeyFile.length > 0) {
-            try {
-                KeyStore clientKeystore = KeyStore.getInstance("PKCS12");
-                clientKeystore.load(new ByteArrayInputStream(clientKeyFile), clientKeyFilePass.toCharArray());
-
-                KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("X509");
-                keyManagerFactory.init(clientKeystore, clientKeyFilePass.toCharArray());
-                clientKeyManagers = keyManagerFactory.getKeyManagers();
-            } catch (KeyStoreException | UnrecoverableKeyException | IOException | NoSuchAlgorithmException | CertificateException | IllegalStateException e) {
-                kitty.error("loadClientFile()", e);
-            }
+        try {
+            KeyStore clientKeystore = KeyStore.getInstance("AndroidKeyStore");
+            clientKeystore.load(null);
+            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("X509");
+            keyManagerFactory.init(clientKeystore, null);
+            clientKeyManagers = keyManagerFactory.getKeyManagers();
+        } catch (KeyStoreException | UnrecoverableKeyException | IOException | NoSuchAlgorithmException | CertificateException | IllegalStateException e) {
+            kitty.error("loadClientFile()", e);
         }
     }
 }

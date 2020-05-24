@@ -17,6 +17,7 @@ import androidx.preference.ClearCertPreference;
 import androidx.preference.DialogPreference;
 import androidx.preference.EditTextPreferenceFix;
 import androidx.preference.FilePreference;
+import androidx.preference.LoadCertPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceGroup;
@@ -36,7 +37,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
     final static private int PREF_RINGTONE_ID = 0;
     final static private int PREF_SSH_KEY_ID = 1;
     final static private int PREF_SSH_KNOWN_HOSTS_ID = 2;
-    final static private int PREF_TLS_CLIENT_FILE_ID = 3;
+    final static private int PREF_TLS_CLIENT_CERT_ID = 3;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,10 +125,10 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
                     id = PREF_SSH_KEY_ID;
                 } else if (PREF_SSH_KNOWN_HOSTS.equals(preference.getKey())) {
                     id = PREF_SSH_KNOWN_HOSTS_ID;
-                } else if (PREF_TLS_CLIENT_FILE.equals(preference.getKey())) {
-                    id = PREF_TLS_CLIENT_FILE_ID;
                 }
                 f = FilePreference.FilePreferenceFragment.newInstance(preference.getKey(), id);
+            } else if (preference instanceof LoadCertPreference) {
+                f = LoadCertPreference.LoadCertPreferenceFragment.newInstance(preference.getKey(), PREF_TLS_CLIENT_CERT_ID);
             } else if (preference instanceof EditTextPreferenceFix)
                 f = EditTextPreferenceFix.EditTextPreferenceFixFragment.newInstance(preference.getKey());
             else if (preference instanceof ClearCertPreference)
@@ -196,7 +197,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
                     case PREF_RINGTONE_ID: ((RingtonePreferenceFix) findPreference(PREF_NOTIFICATION_SOUND)).onActivityResult(data); break;
                     case PREF_SSH_KEY_ID: ((FilePreference) findPreference(PREF_SSH_KEY)).onActivityResult(data); break;
                     case PREF_SSH_KNOWN_HOSTS_ID: ((FilePreference) findPreference(PREF_SSH_KNOWN_HOSTS)).onActivityResult(data); break;
-                    case PREF_TLS_CLIENT_FILE_ID: ((FilePreference) findPreference(PREF_TLS_CLIENT_FILE)).onActivityResult(data); break;
+                    case PREF_TLS_CLIENT_CERT_ID: ((LoadCertPreference) findPreference(PREF_TLS_CLIENT_CERT)).onActivityResult(data); break;
                 }
             }
         }

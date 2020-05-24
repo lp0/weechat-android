@@ -219,8 +219,7 @@ public class P implements SharedPreferences.OnSharedPreferenceChangeListener{
     static String sshUser;
     static String sshPass;
     static byte[] sshKey, sshKnownHosts;
-    static byte[] tlsClientFile;
-    static String tlsClientFilePass;
+    static long tlsClientCert;
     static public int port;
     static int sshPort;
     static SSLSocketFactory sslSocketFactory;
@@ -247,8 +246,7 @@ public class P implements SharedPreferences.OnSharedPreferenceChangeListener{
         sshKey = FilePreference.getData(p.getString(PREF_SSH_KEY, PREF_SSH_KEY_D));
         sshKnownHosts = FilePreference.getData(p.getString(PREF_SSH_KNOWN_HOSTS, PREF_SSH_KNOWN_HOSTS_D));
 
-        tlsClientFile = FilePreference.getData(p.getString(PREF_TLS_CLIENT_FILE, PREF_TLS_CLIENT_FILE_D));
-        tlsClientFilePass = p.getString(PREF_TLS_CLIENT_FILE_PASS, PREF_TLS_CLIENT_FILE_PASS_D);
+        tlsClientCert = p.getLong(PREF_TLS_CLIENT_CERT, PREF_TLS_CLIENT_CERT_D);
 
         lineIncrement = Integer.parseInt(getString(PREF_LINE_INCREMENT, PREF_LINE_INCREMENT_D));
         reconnect = p.getBoolean(PREF_RECONNECT, PREF_RECONNECT_D);
@@ -259,7 +257,7 @@ public class P implements SharedPreferences.OnSharedPreferenceChangeListener{
         pingTimeout = Integer.parseInt(getString(PREF_PING_TIMEOUT, PREF_PING_TIMEOUT_D)) * 1000;
 
         if (Utils.isAnyOf(connectionType, PREF_TYPE_SSL, PREF_TYPE_WEBSOCKET_SSL)) {
-            sslSocketFactory = SSLHandler.getInstance(context, tlsClientFile, tlsClientFilePass).getSSLSocketFactory();
+            sslSocketFactory = SSLHandler.getInstance(context).getSSLSocketFactory();
         } else {
             sslSocketFactory = null;
         }
