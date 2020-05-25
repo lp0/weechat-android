@@ -165,6 +165,8 @@
             <string name="pref_tls_client_file">Client file</string>
             <string name="pref_tls_client_file_summary">PKCS #12 file containing private key and client certificate</string>
             <string name="pref_tls_client_file_pass">Client file password</string>
+            <string name="pref_tls_session_cache">Use session cache</string>
+            <string name="pref_tls_session_cache_summary">Use session resumption to reconnect faster (if supported by the server)</string>
 
         <!-- file -->
 
