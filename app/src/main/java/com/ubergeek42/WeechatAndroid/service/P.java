@@ -221,6 +221,7 @@ public class P implements SharedPreferences.OnSharedPreferenceChangeListener{
     static byte[] sshKey, sshKnownHosts;
     static byte[] tlsClientFile;
     static String tlsClientFilePass;
+    static boolean tlsSessionCache;
     static public int port;
     static int sshPort;
     static SSLSocketFactory sslSocketFactory;
@@ -249,6 +250,7 @@ public class P implements SharedPreferences.OnSharedPreferenceChangeListener{
 
         tlsClientFile = FilePreference.getData(p.getString(PREF_TLS_CLIENT_FILE, PREF_TLS_CLIENT_FILE_D));
         tlsClientFilePass = p.getString(PREF_TLS_CLIENT_FILE_PASS, PREF_TLS_CLIENT_FILE_PASS_D);
+        tlsSessionCache = p.getBoolean(PREF_TLS_SESSION_CACHE, PREF_TLS_SESSION_CACHE_D);
 
         lineIncrement = Integer.parseInt(getString(PREF_LINE_INCREMENT, PREF_LINE_INCREMENT_D));
         reconnect = p.getBoolean(PREF_RECONNECT, PREF_RECONNECT_D);
@@ -259,7 +261,7 @@ public class P implements SharedPreferences.OnSharedPreferenceChangeListener{
         pingTimeout = Integer.parseInt(getString(PREF_PING_TIMEOUT, PREF_PING_TIMEOUT_D)) * 1000;
 
         if (Utils.isAnyOf(connectionType, PREF_TYPE_SSL, PREF_TYPE_WEBSOCKET_SSL)) {
-            sslSocketFactory = SSLHandler.getInstance(context, tlsClientFile, tlsClientFilePass).getSSLSocketFactory();
+            sslSocketFactory = SSLHandler.getInstance(context, tlsClientFile, tlsClientFilePass, tlsSessionCache).getSSLSocketFactory();
         } else {
             sslSocketFactory = null;
         }

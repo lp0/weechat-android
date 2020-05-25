@@ -25,6 +25,7 @@
             <ClearCertPreference android:key="tls_clear_certs" android:title="@string/pref_clear_certs" />
             <FilePreference android:key="tls_client_file" android:title="@string/pref_tls_client_file" android:summary="@string/pref_tls_client_file_summary" />
             <EditTextPreferenceFix android:key="tls_client_file_pass" android:title="@string/pref_tls_client_file_pass" android:summary="%s" android:password="true" android:singleLine="true"/>
+            <CheckBoxPreference android:key="tls_session_cache" android:title="@string/pref_tls_session_cache" android:summary="@string/pref_tls_session_cache_summary" android:defaultValue="true"/>
         </PreferenceScreen>
 
         <!-- relay settings and the rest -->
