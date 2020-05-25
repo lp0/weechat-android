@@ -6,6 +6,7 @@ package com.ubergeek42.WeechatAndroid.service;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.SSLCertificateSocketFactory;
+import android.net.SSLSessionCache;
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,13 +53,15 @@ public class SSLHandler {
     // best-effort RDN regex, matches CN="foo,bar",OU=... and CN=foobar,OU=...
     private static final Pattern RDN_PATTERN = Pattern.compile("CN\\s*=\\s*((?:\"[^\"]*\")|(?:[^\",]*))");
 
+    private File sessionsDir;
     private File keystoreFile;
     private KeyStore sslKeystore;
     private byte[] clientKeyFile;
     private String clientKeyFilePass;
     private KeyManager[] clientKeyManagers;
 
-    private SSLHandler(File keystoreFile, byte[] clientKeyFile, String clientKeyFilePass) {
+    private SSLHandler(File sessionsDir, File keystoreFile, byte[] clientKeyFile, String clientKeyFilePass) {
+        this.sessionsDir = sessionsDir;
         this.keystoreFile = keystoreFile;
         loadKeystore();
         this.clientKeyFile = clientKeyFile;
@@ -74,8 +77,9 @@ public class SSLHandler {
 
     public static @NonNull SSLHandler getInstance(@NonNull Context context, @Nullable byte[] clientKeyFile, @NonNull String clientKeyFilePass) {
         if (sslHandler == null || !sslHandler.sameParameters(clientKeyFile, clientKeyFilePass)) {
-            File f = new File(context.getDir("sslDir", Context.MODE_PRIVATE), "keystore.jks");
-            sslHandler = new SSLHandler(f, clientKeyFile, clientKeyFilePass);
+            File sessions = context.getDir("sslCache", Context.MODE_PRIVATE);
+            File keystore = new File(context.getDir("sslDir", Context.MODE_PRIVATE), "keystore.jks");
+            sslHandler = new SSLHandler(sessions, keystore, clientKeyFile, clientKeyFilePass);
         }
         return sslHandler;
     }
@@ -163,7 +167,14 @@ public class SSLHandler {
     }
 
     SSLSocketFactory getSSLSocketFactory() {
-        SSLCertificateSocketFactory sslSocketFactory = (SSLCertificateSocketFactory) SSLCertificateSocketFactory.getDefault(0, null);
+        SSLSessionCache cache = null;
+        try {
+            cache = new SSLSessionCache(sessionsDir);
+        } catch (IOException e) {
+            kitty.error("getSSLSocketFactory()", e);
+        }
+
+        SSLCertificateSocketFactory sslSocketFactory = (SSLCertificateSocketFactory) SSLCertificateSocketFactory.getDefault(0, cache);
         sslSocketFactory.setKeyManagers(clientKeyManagers);
         sslSocketFactory.setTrustManagers(UserTrustManager.build(sslKeystore));
         return sslSocketFactory;
