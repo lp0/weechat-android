@@ -62,17 +62,22 @@ public class Constants {
 
     // look & feel
     final static public String PREF_LOOKFEEL_GROUP = "lookfeel_group";
-    public static final String PREF_TEXT_SIZE = "text_size"; final public static String PREF_TEXT_SIZE_D = "12";
-    public static final String PREF_AUTO_HIDE_ACTIONBAR = "auto_hide_actionbar"; public static final boolean PREF_AUTO_HIDE_ACTIONBAR_D = true;
-    public static final String PREF_FILTER_LINES = "chatview_filters"; final public static boolean PREF_FILTER_LINES_D = true;
-    public static final String PREF_PREFIX_ALIGN = "prefix_align"; final public static String PREF_PREFIX_ALIGN_D = "right";
-    final static public String PREF_MAX_WIDTH = "prefix_max_width"; final public static String PREF_MAX_WIDTH_D = "7";
-    public static final String PREF_ENCLOSE_NICK = "enclose_nick"; final public static boolean PREF_ENCLOSE_NICK_D = false;
-    final static public String PREF_TIMESTAMP_FORMAT = "timestamp_format"; final public static String PREF_TIMESTAMP_FORMAT_D = "HH:mm:ss";
-    public static final String PREF_DIM_DOWN = "dim_down"; final public static boolean PREF_DIM_DOWN_D = false;
-    public static final String PREF_BUFFER_FONT = "buffer_font"; final public static String PREF_BUFFER_FONT_D = "";
+    final static public String PREF_TEXT_SIZE = "text_size"; final static public String PREF_TEXT_SIZE_D = "12";
+    final static public String PREF_TIMESTAMP_FORMAT = "timestamp_format"; final static public String PREF_TIMESTAMP_FORMAT_D = "HH:mm:ss";
+    final static public String PREF_FILTER_LINES = "chatview_filters"; final static public boolean PREF_FILTER_LINES_D = true;
+    final static public String PREF_BUFFER_FONT = "buffer_font"; final static public String PREF_BUFFER_FONT_D = "";
+    final static public String PREF_PREFIX_ALIGN = "prefix_align"; final static public String PREF_PREFIX_ALIGN_D = "right";
+    final static public String PREF_MAX_WIDTH = "prefix_max_width"; final static public String PREF_MAX_WIDTH_D = "7";
+    final static public String PREF_ENCLOSE_NICK = "enclose_nick"; final static public boolean PREF_ENCLOSE_NICK_D = false;
+    final static public String PREF_AUTO_HIDE_ACTIONBAR = "auto_hide_actionbar"; final static public boolean PREF_AUTO_HIDE_ACTIONBAR_D = true;
+    final static public String PREF_ACTIONBAR_SHOW_CONNECT = "actionbar_show_connect"; final static public boolean PREF_ACTIONBAR_SHOW_CONNECT_D = false;
+    final static public String PREF_ACTIONBAR_SHOW_CLOSE = "actionbar_show_close"; final static public boolean PREF_ACTIONBAR_SHOW_CLOSE_D = false;
+    final static public String PREF_ACTIONBAR_SHOW_NICKLIST = "actionbar_show_nicklist"; final static public boolean PREF_ACTIONBAR_SHOW_NICKLIST_D = true;
+
+    // theme
     public static final String PREF_COLOR_SCHEME_DAY = "color_scheme_day"; final public static String PREF_COLOR_SCHEME_DAY_D = "squirrely-light-theme.properties";
     public static final String PREF_COLOR_SCHEME_NIGHT = "color_scheme_night"; final public static String PREF_COLOR_SCHEME_NIGHT_D = "squirrely-dark-theme.properties";
+    public static final String PREF_DIM_DOWN = "dim_down"; final public static boolean PREF_DIM_DOWN_D = false;
 
     // buttons
     public final static String PREF_SHOW_SEND = "sendbtn_show"; final public static boolean PREF_SHOW_SEND_D = true;

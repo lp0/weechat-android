@@ -91,7 +91,8 @@ import static com.ubergeek42.WeechatAndroid.service.RelayService.STATE.*;
 import static com.ubergeek42.WeechatAndroid.utils.Constants.*;
 
 public class WeechatActivity extends AppCompatActivity implements
-        CutePagerTitleStrip.CutePageChangeListener, BufferListClickListener {
+        CutePagerTitleStrip.CutePageChangeListener, BufferListClickListener,
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
     final private static @Root Kitty kitty = Kitty.make("WA");
 
@@ -379,7 +380,7 @@ public class WeechatActivity extends AppCompatActivity implements
     }
 
     // hide or show nicklist/close menu item according to buffer
-    @MainThread private void updateMenuItems() {
+    @MainThread @Cat("Menu") private void updateMenuItems() {
         if (uiMenu == null) return;
         boolean bufferVisible = adapter.getCount() > 0;
         uiMenu.findItem(R.id.menu_nicklist).setVisible(bufferVisible);
@@ -387,6 +388,14 @@ public class WeechatActivity extends AppCompatActivity implements
         uiMenu.findItem(R.id.menu_filter_lines).setChecked(P.filterLines);
         uiMenu.findItem(R.id.menu_dark_theme).setVisible(P.themeSwitchEnabled);
         uiMenu.findItem(R.id.menu_dark_theme).setChecked(P.darkThemeActive);
+
+        SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean showClose = p.getBoolean(PREF_ACTIONBAR_SHOW_CLOSE, PREF_ACTIONBAR_SHOW_CLOSE_D);
+        boolean showConnect = p.getBoolean(PREF_ACTIONBAR_SHOW_CONNECT, PREF_ACTIONBAR_SHOW_CONNECT_D);
+        boolean showNicklist = p.getBoolean(PREF_ACTIONBAR_SHOW_NICKLIST, PREF_ACTIONBAR_SHOW_NICKLIST_D);
+        uiMenu.findItem(R.id.menu_close).setShowAsActionFlags(showClose ? MenuItem.SHOW_AS_ACTION_ALWAYS : MenuItem.SHOW_AS_ACTION_NEVER);
+        uiMenu.findItem(R.id.menu_connection_state).setShowAsActionFlags(showConnect ? MenuItem.SHOW_AS_ACTION_ALWAYS : MenuItem.SHOW_AS_ACTION_NEVER);
+        uiMenu.findItem(R.id.menu_nicklist).setShowAsActionFlags(showNicklist ? MenuItem.SHOW_AS_ACTION_ALWAYS : MenuItem.SHOW_AS_ACTION_NEVER);
     }
 
     @Override @MainThread @Cat("Menu") public boolean onCreateOptionsMenu(final Menu menu) {
@@ -406,6 +415,11 @@ public class WeechatActivity extends AppCompatActivity implements
         makeMenuReflectConnectionStatus();
         updateHotCount(hotNumber);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override @MainThread @Cat("Menu") public boolean onPrepareOptionsMenu(final Menu menu) {
+        updateMenuItems();
+        return true;
     }
 
     @MainThread @Override @Cat("Menu") public boolean onOptionsItemSelected(MenuItem item) {
@@ -647,5 +661,16 @@ public class WeechatActivity extends AppCompatActivity implements
                             Collections.singletonList(new Rect(0, pagerHeight / 2, 200, pagerHeight)) :
                             Collections.emptyList());
         });
+    }
+
+    @MainThread @Override @CatD public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        switch (key) {
+            case PREF_ACTIONBAR_SHOW_CLOSE:
+            case PREF_ACTIONBAR_SHOW_CONNECT:
+            case PREF_ACTIONBAR_SHOW_NICKLIST:
+                supportInvalidateOptionsMenu();
+                // FIXME
+                break;
+        }
     }
 }

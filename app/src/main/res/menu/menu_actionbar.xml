@@ -5,13 +5,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:ignore="AlwaysShowAction">
     <item android:id="@+id/menu_close"
+          app:showAsAction="never"
           android:icon="@drawable/ic_cancel"
-          android:title="@string/menu_close"
-          app:showAsAction="always"/>
+          android:title="@string/menu_close"/>
     <item android:id="@+id/menu_nicklist"
+          app:showAsAction="always"
           android:icon="@drawable/ic_toolbar_users"
-          android:title="@string/menu_nicklist"
-          app:showAsAction="never"/>
+          android:title="@string/menu_nicklist" />
     <item android:id="@+id/menu_hotlist"
           app:actionLayout="@layout/toolbar_bell"
           app:showAsAction="always"
