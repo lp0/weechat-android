@@ -12,7 +12,7 @@ import java.io.IOException;
 public class RelayConnection {
     final private static Logger logger = LoggerFactory.getLogger("RelayConnection");
 
-    final static int CONNECTION_TIMEOUT = 5 * 1000;
+    final static int CONNECTION_TIMEOUT = 30 * 1000;
 
     final private static String ID_VERSION = "version";
     final private static String ID_LIST_BUFFERS = "listbuffers";
